@@ -138,8 +138,9 @@ export async function getClientInfo(request: Request, payload: Record<string, an
   const ip = payload?.ip || getIpAddress(request.headers);
   const location = await getLocation(ip, request.headers, !!payload?.ip);
   const country = safeDecodeURIComponent(location?.country);
-  const region = safeDecodeURIComponent(location?.region);
-  const city = safeDecodeURIComponent(location?.city);
+  // SmartAI Labs fork (smartai-netlify): store the country only, never the region or city (privacy page, 13 November 2026)
+  const region = undefined;
+  const city = undefined;
   const browser = payload?.browser ?? browserName(userAgent);
   const os = payload?.os ?? (detectOS(userAgent) as string);
   const device = payload?.device ?? getDevice(userAgent, payload?.screen);
