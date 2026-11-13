@@ -1,3 +1,5 @@
+import './netlify-env';
+
 export function getAppSecret(): string {
   const value = process.env.APP_SECRET;
 
