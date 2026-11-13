@@ -1,6 +1,7 @@
 [build]
 # Netlify Database provides NETLIFY_DB_URL; the build applies Umami's migrations with it.
-command = 'DATABASE_URL="${DATABASE_URL:-$NETLIFY_DB_URL}" pnpm run build'
+# The first line lists the names (never the values) of database variables, to diagnose a missing connection string.
+command = 'env | cut -d= -f1 | grep -iE "db|database|neon" || true; DATABASE_URL="${DATABASE_URL:-$NETLIFY_DB_URL}" pnpm run build'
 publish = ".next"
 
 [build.environment]
