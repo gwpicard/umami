@@ -5,6 +5,8 @@ publish = ".next"
 
 [build.environment]
 NODE_VERSION = "22"
+# package.json requires exactly this pnpm (engines.pnpm)
+PNPM_VERSION = "12.3.4"
 
 [functions]
 included_files = ["node_modules/.geo/**"]
