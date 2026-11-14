@@ -21,6 +21,13 @@ import {
 import { collectionSchema } from './request-schema';
 
 export async function POST(request: Request) {
+  // SmartAI Labs fork (smartai-netlify): only the site's server may send events. When COLLECT_SECRET is set, a request
+  // without the same value in x-collect-secret is refused, so no one else can write statistics.
+  const collectSecret = process.env.COLLECT_SECRET;
+  if (collectSecret && request.headers.get('x-collect-secret') !== collectSecret) {
+    return new Response(null, { status: 403 });
+  }
+
   try {
     const { body, error } = await parseRequest(request, collectionSchema, { skipAuth: true });
 
